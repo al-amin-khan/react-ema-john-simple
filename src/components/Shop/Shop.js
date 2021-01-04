@@ -3,6 +3,7 @@ import fakeData from '../../fakeData'
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
+import {addToDatabaseCart} from '../../utilities/databaseManager'
 
 const Shop = () => {
   const fakeDataFirstTen = fakeData.slice(0,10);
@@ -15,6 +16,9 @@ const Shop = () => {
     console.log(product);
     const updatedCart = [...cart, product];
     setCart(updatedCart);
+    const sameProduct = updatedCart.filter(item => item.key === product.key);
+    const count = sameProduct.length;
+    addToDatabaseCart(product.key, count);
   };
   return (
     <div className="shop-container">
